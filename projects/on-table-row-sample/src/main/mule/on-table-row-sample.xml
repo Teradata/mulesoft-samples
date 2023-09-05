@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sockets="http://www.mulesoft.org/schema/mule/sockets" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/sockets http://www.mulesoft.org/schema/mule/sockets/current/mule-sockets.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="f7412be3-4b01-4863-89cb-5bfbbf6d7ed8" >
+		<db:generic-connection url="jdbc:teradata://dbt-environment-august-wteuh1djm0q9u4x5.env.clearscape.teradata.com/user=demo_user,password=dbtTest#01" driverClassName="com.teradata.jdbc.TeraDriver" />
+	</db:config>
+	<flow name="on-table-row-sampleFlow" doc:id="1271b9cd-c8c7-40b7-956b-6d2586b6d641" >
+		<db:listener doc:name="On Table Row" doc:id="189fa547-00db-41f9-ab67-fb6f2af76ce9" config-ref="Database_Config" table="HR.employees" watermarkColumn="GlobalID">
+			<scheduling-strategy >
+				<fixed-frequency frequency="500"/>
+			</scheduling-strategy>
+		</db:listener>
+		<db:delete doc:name="Delete" doc:id="5f08313e-4333-43f9-b608-e8277ddd645f" config-ref="Database_Config">
+			<db:sql ><![CDATA[DELETE FROM hr.pendinghires WHERE GlobalID = :id]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{'id' : payload.GlobalID}]]]></db:input-parameters>
+		</db:delete>
+		<logger level="INFO" doc:name="Logger" doc:id="a938f2e7-8f02-4e77-8594-06e76b6745db"/>
+	</flow>
+</mule>
