@@ -2,6 +2,8 @@
 
 This repository contains samples of different projects that can be imported into Mulesoft's AnyPoint studio to illustrate the integration of Teradata JDBC connector with mulesoft. 
 
+The samples are illustrated in a way the user can reproduce them by using AnyPoint Studio IDE, however, it is also possible to import the folders to the IDE.
+
 ## Table of contents
 
 This repository contains the following samples.
@@ -53,4 +55,27 @@ All commands below shall be ran in your favorite database client.
  CREATE DATABASE HR
    AS PERMANENT = 60e6, SPOOL = 120e6;
 ```
-* We will create afterwards the two tables
+* With the database created we can create the two tables needed for the sample use case
+
+```
+CREATE SET TABLE HR.Employees (
+   GlobalID INTEGER,
+   FirstName VARCHAR(30),
+   LastName VARCHAR(30),
+   DateOfBirth DATE FORMAT 'YYYY-MM-DD',
+   JoinedDate DATE FORMAT 'YYYY-MM-DD',
+   DepartmentCode BYTEINT
+ )
+ UNIQUE PRIMARY INDEX ( GlobalID );
+
+ CREATE SET TABLE HR.PendingHires (
+   GlobalID INTEGER,
+   FirstName VARCHAR(30),
+   LastName VARCHAR(30),
+   DateOfBirth DATE FORMAT 'YYYY-MM-DD',
+   DepartmentCode BYTEINT
+ )
+ UNIQUE PRIMARY INDEX ( GlobalID );
+```
+
+* Next we will add a couple of records to the `PendingHires` table:
