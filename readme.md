@@ -1,4 +1,4 @@
-# Mulesoft Sample Cases
+# Mulesoft's Anypoint Studio and Teradata Vantage - Sample Use Cases
 
 This repository contains samples of different projects that can be imported into Mulesoft's AnyPoint studio to illustrate the integration of Teradata JDBC connector with mulesoft. 
 
