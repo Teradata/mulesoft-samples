@@ -6,7 +6,7 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/sockets http://www.mulesoft.org/schema/mule/sockets/current/mule-sockets.xsd">
 	<db:config name="Database_Config" doc:name="Database Config" doc:id="f7412be3-4b01-4863-89cb-5bfbbf6d7ed8" >
-		<db:generic-connection url="jdbc:teradata://dbt-environment-august-wteuh1djm0q9u4x5.env.clearscape.teradata.com/user=demo_user,password=dbtTest#01" driverClassName="com.teradata.jdbc.TeraDriver" />
+		<db:generic-connection url="jdbc:teradata://<YOUR HOST>/user=<YOUR USER>,password=<YOUR PASSWORD>" driverClassName="com.teradata.jdbc.TeraDriver" />
 	</db:config>
 	<flow name="on-table-row-sampleFlow" doc:id="1271b9cd-c8c7-40b7-956b-6d2586b6d641" >
 		<db:listener doc:name="On Table Row" doc:id="189fa547-00db-41f9-ab67-fb6f2af76ce9" config-ref="Database_Config" table="HR.employees" watermarkColumn="GlobalID">
